@@ -8,6 +8,22 @@
     "baseUrl": "./",
     "paths": {
       "src/*": ["src/*"]
+    },
+    "lib": ["es6"], // Use "es6" ou superior, dependendo das necessidades do seu projeto
+
+    "jsx": "react-native", // Use "react-native" para configuração do JSX
+
+    "target": "ESNext", // Escolha a versão do ECMAScript que você deseja compilar
+
+    "allowSyntheticDefaultImports": true, // Permita importações de módulos padrão
+
+    "skipLibCheck": true, // Omita a verificação de declarações de tipo de biblioteca
+
+    // Configuração de caminhos de importação personalizados, se necessário
+    "paths": {
+      "api/*": ["src/api/*"],
+      "components/*": ["src/components/*"],
+      // Adicione outros caminhos personalizados, se necessário
     }
   }
 }
