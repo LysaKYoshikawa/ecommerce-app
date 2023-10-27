@@ -1,40 +1,53 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList } from 'react-native';
-import { fetchProducts } from '../api'; // Importe a função do módulo de serviço
+import { View, FlatList, StyleSheet, ActivityIndicator } from 'react-native';
+import ProductItem from '../../components/ProductItem';
+import { fetchProducts } from '../api';
 
-const ProductsScreen: React.FC = () => {
-    const [products, setProducts] = useState([]);
-  
-    useEffect(() => {
-      // Use a função fetchProducts para buscar os produtos da API
-      // e atualizar o estado products
-      async function loadProducts() {
-        try {
-          const data = await fetchProducts();
-          setProducts(data);
-        } catch (error) {
-          console.error(error);
-        }
+const ProductsScreen = () => {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchProductsData() {
+      try {
+        const data = await fetchProducts();
+        setProducts(data);
+        setLoading(false);
+      } catch (error) {
+        console.error(error);
       }
+    }
   
-      loadProducts();
-    }, []);
-  
+    fetchProductsData();
+  }, []);
+
+  if (loading) {
     return (
-      <View>
-        <Text>Lista de Produtos</Text>
-        <FlatList
-          data={products}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
-            <View>
-              <Text>{item.title}</Text>
-              {/* Renderize outras informações do produto, se necessário */}
-            </View>
-          )}
-        />
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="blue" />
       </View>
     );
-  };
-  
-  export default ProductsScreen;
+  }
+
+  return (
+    <FlatList
+      data={products}
+      keyExtractor={(item) => item.id.toString()}
+      renderItem={({ item }) => <ProductItem product={item} />}
+      contentContainerStyle={styles.container}
+    />
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 10,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
+
+export default ProductsScreen;
