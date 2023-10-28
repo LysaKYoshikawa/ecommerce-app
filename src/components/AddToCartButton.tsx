@@ -1,14 +1,14 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Image, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 interface AddToCartButtonProps {
-  onPress: () => void;
+  onPress: () => void; // Adicione essa prop
 }
 
 const AddToCartButton: React.FC<AddToCartButtonProps> = ({ onPress }) => {
   return (
     <TouchableOpacity onPress={onPress}>
-      <View style={styles.buttonContainer}>
+      <View style={styles.button}>
         <Text style={styles.buttonText}>Adicionar ao Carrinho</Text>
       </View>
     </TouchableOpacity>
@@ -16,15 +16,17 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({ onPress }) => {
 };
 
 const styles = StyleSheet.create({
-  buttonContainer: {
+  button: {
     backgroundColor: 'blue',
     padding: 10,
     borderRadius: 5,
+    alignItems: 'center',
   },
   buttonText: {
     color: 'white',
-    textAlign: 'center',
+    fontSize: 16,
   },
 });
 
 export default AddToCartButton;
+

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { View, FlatList, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, FlatList, StyleSheet, ActivityIndicator,TouchableOpacity, Text } from 'react-native';
 import ProductItem from '../../components/ProductItem';
 import { fetchProducts } from '../api';
 import AddToCartButton from '../../components/AddToCartButton';
 
-const ProductsScreen = () => {
+const ProductsScreen = ({ navigation }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [cart, setCart] = useState([]);
@@ -50,20 +50,42 @@ const ProductsScreen = () => {
   }
 
   return (
-    <FlatList
-      data={products}
-      keyExtractor={(item) => item.id.toString()}
-      renderItem={({ item }) => (
-        <ProductItem product={item} onAddToCart={() => addToCart(item)} /> // Passe a função para o ProductItem
-      )}
-      contentContainerStyle={styles.container}
-    />
+    <View style={styles.container}>
+      <TouchableOpacity
+        style={styles.cartButton}
+        onPress={() => navigation.navigate('Cart')}
+        >
+        <Text style={styles.cartButtonText}>Ver Carrinho</Text>
+      </TouchableOpacity>
+
+      <FlatList
+        data={products}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => (
+          <ProductItem product={item} onAddToCart={() => addToCart(item)} /> // Passe a função para o ProductItem
+        )}
+        contentContainerStyle={styles.container}
+      />
+    </View>
+    
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     padding: 10,
+  },
+  cartButton: {
+    backgroundColor: 'blue',
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+    marginVertical: 10,
+  },
+  cartButtonText: {
+    color: 'white',
+    fontSize: 16,
   },
   loadingContainer: {
     flex: 1,

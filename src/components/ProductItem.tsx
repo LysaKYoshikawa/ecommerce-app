@@ -3,8 +3,8 @@ import { View, Image, Text, StyleSheet } from 'react-native';
 import AddToCartButton from './AddToCartButton';
 
 interface ProductItemProps {
-  product: any; // Defina o tipo de produto apropriado
-  onAddToCart: () => void; // Função para adicionar ao carrinho
+  product: any; 
+  onAddToCart: () => void; 
 }
 
 const ProductItem: React.FC<ProductItemProps> = ({ product, onAddToCart }) => {
@@ -13,6 +13,7 @@ const ProductItem: React.FC<ProductItemProps> = ({ product, onAddToCart }) => {
       <Image source={{ uri: product.image }} style={styles.image} />
       <Text style={styles.title}>{product.title}</Text>
       <Text style={styles.price}>Price: ${product.price}</Text>
+      <Text style={styles.description}>{product.description}</Text>
       <AddToCartButton onPress={onAddToCart} />
     </View>
   );
