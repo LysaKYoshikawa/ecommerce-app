@@ -1,10 +1,9 @@
 // src/screens/checkout/CartScreen.tsx
 import React from 'react';
-import { View, Text, FlatList, StyleSheet } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 
-const CartScreen = ({ cart }) => {
-  // Calcula o preço total do carrinho
-  const totalPrice = cart ? cart.reduce((acc, item) => acc + item.price, 0) : 0;
+const CartScreen = ({ cart, updateCart, removeFromCart }) => {
+  const totalPrice = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   return (
     <View style={styles.container}>
@@ -17,6 +16,17 @@ const CartScreen = ({ cart }) => {
             <Text>{item.title}</Text>
             <Text>Quantidade: {item.quantity}</Text>
             <Text>Preço total: ${item.price * item.quantity}</Text>
+            <View style={styles.cartActions}>
+              <TouchableOpacity onPress={() => updateCart(item.id, -1)}>
+                <Text style={styles.actionButton}>-</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => updateCart(item.id, 1)}>
+                <Text style={styles.actionButton}>+</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => removeFromCart(item.id)}>
+                <Text style={styles.actionButton}>Remover</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         )}
       />

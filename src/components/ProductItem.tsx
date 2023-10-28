@@ -13,7 +13,6 @@ const ProductItem: React.FC<ProductItemProps> = ({ product, onAddToCart }) => {
       <Image source={{ uri: product.image }} style={styles.image} />
       <Text style={styles.title}>{product.title}</Text>
       <Text style={styles.price}>Price: ${product.price}</Text>
-      <Text style={styles.description}>{product.description}</Text>
       <AddToCartButton onPress={onAddToCart} />
     </View>
   );
