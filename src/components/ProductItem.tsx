@@ -1,23 +1,31 @@
 import React from 'react';
 import { View, Image, Text, StyleSheet } from 'react-native';
+import AddToCartButton from './AddToCartButton';
 
-const ProductItem = ({ product }) => {
+interface ProductItemProps {
+  product: any; // Defina o tipo de produto apropriado
+  onAddToCart: () => void; // Função para adicionar ao carrinho
+}
+
+const ProductItem: React.FC<ProductItemProps> = ({ product, onAddToCart }) => {
   return (
     <View style={styles.container}>
       <Image source={{ uri: product.image }} style={styles.image} />
       <Text style={styles.title}>{product.title}</Text>
-      <Text style={styles.price}>$ {product.price.toFixed(2)}</Text>
+      <Text style={styles.price}>Price: ${product.price}</Text>
+      <AddToCartButton onPress={onAddToCart} />
     </View>
   );
 };
 
+
 const styles = StyleSheet.create({
   container: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 8,
     padding: 10,
-    margin: 10,
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 5,
+    margin: 5,
     alignItems: 'center',
   },
   image: {
@@ -27,7 +35,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 16,
     fontWeight: 'bold',
-    marginTop: 5,
   },
   price: {
     fontSize: 14,
